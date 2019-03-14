@@ -19,13 +19,13 @@ def usage():
     
 
 def make_calc_for_two(nb):
-    print("Binomial distribution:")
     phone = 3500
     p = nb / (8 * 60 * 60)
     c = p * phone
     ctime = time()
     #power = nb / (3600 * 8)
     #exit (0)
+    print("Binomial distribution:")
     for i in range(51):
         print("%d->%.3f" % (i, bino(i, phone, p)), end='\t' if (i + 1) % 6 and i != 50 else '\n')
     print("overload: %.1f%%" % (sum(bino(i, phone, p) for i in range(26, 51)) * 100))
@@ -85,5 +85,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-main()
