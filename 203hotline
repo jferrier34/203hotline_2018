@@ -1,0 +1,89 @@
+#!/usr/bin/python3
+import sys
+from math import *
+from math import factorial, exp
+from time import time
+
+C = lambda n, k: (factorial(n) // (factorial(k) * factorial(n - k)))
+poisson = lambda c, k : ((exp(-c) * c ** k) / factorial(k))
+bino = lambda i, n, p : (C(n, i) * (p ** i) * ((1 - p) ** (n - i)))
+
+def usage():
+    print("USAGE")
+    print("\t\t./203hotline [n k | d]\n")
+    print("DESCRIPTION")
+    print("\tn\tn value for the computation of (n k)")
+    print("\tk\tk value for the computation of (n k)")
+    print("\td\taverage duration of calls (in seconds)")
+    exit(0)
+    
+
+def make_calc_for_two(nb):
+    print("Binomial distribution:")
+    phone = 3500
+    p = nb / (8 * 60 * 60)
+    c = p * phone
+    ctime = time()
+    #power = nb / (3600 * 8)
+    #exit (0)
+    for i in range(51):
+        print("%d->%.3f" % (i, bino(i, phone, p)), end='\t' if (i + 1) % 6 and i != 50 else '\n')
+    print("overload: %.1f%%" % (sum(bino(i, phone, p) for i in range(26, 51)) * 100))
+    print("computation time: %.2f ms\n" % ((time() - ctime) * 1000))
+    ctime = time()
+    print("Poisson distribution:")
+    for i in range(51):
+        print("%d->%.3f" % (i, poisson(c, i)), end='\t' if (i + 1) % 6 and i != 50 else '\n')
+    print("overload: %.1f%%" % (sum(poisson(c, i) for i in range(26, 51)) * 100))
+    print("computation time: %.2f ms" % ((time() - ctime) * 1000))      
+
+
+def make_calc_for_three(nb1, nb2):
+    tmp1 = factorial(nb2)
+    tmp2 = factorial(nb1)
+    tmp3 = factorial(nb1 - nb2)
+    tmp4 = tmp2 // (tmp1 * tmp3)
+    print("%0.0f-combination of a %0.0f set:\n%d" %(nb2, nb1, tmp4))
+    exit (0)
+
+def do_all():
+    if (len(sys.argv) == 2):
+        nb = int(sys.argv[1])
+        make_calc_for_two(nb)
+    if (len(sys.argv) == 3):
+        nb1 = int(sys.argv[1])
+        nb2 = int(sys.argv[2])
+        make_calc_for_three(nb1, nb2)
+
+def check_error_for_two():
+    try:
+        nb = int(sys.argv[1])
+    except:
+        exit(84)
+
+def check_error_for_three():
+    try:
+        nb = int(sys.argv[1])
+        nb2 = int(sys.argv[2])
+    except:
+        exit(84)
+
+def check_error():
+    if (len(sys.argv) == 2):
+        if (sys.argv[1] == "-h"):
+            usage()
+    if (len(sys.argv) > 3 or len(sys.argv) < 2):
+        exit (84)
+    if (len(sys.argv) == 2):
+        check_error_for_two()
+    if (len(sys.argv) == 3):
+        check_error_for_three()
+
+def main():
+    check_error()
+    do_all()
+
+if __name__ == '__main__':
+    main()
+
+main()
