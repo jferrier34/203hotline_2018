@@ -27,7 +27,7 @@ def display_poisson(nb, poisson):
 
     print("Poisson distribution:")
     for i in range(max_to_display + 1):
-        print("%d->%.3f" % (i, poisson(c, i)), end='\t' if (i + 1) % 6 and i != max_to_display else '\n')
+        print("%d -> %.3f" % (i, poisson(c, i)), end='\t' if (i + 1) % 6 and i != max_to_display else '\n')
     print("overload: %.1f%%" % (sum(poisson(c, i) for i in range(26, 51)) * 100))
     print("computation time: %.2f ms" % ((time() - ctime) * max))      
    
@@ -41,7 +41,7 @@ def make_calc_for_two(nb):
 
     print("Binomial distribution:")
     for i in range(max_to_display + 1):
-        print("%d->%.3f" % (i, bino(i, phone, p)), end='\t' if (i + 1) % 6 and i != max_to_display else '\n')
+        print("%d -> %.3f" % (i, bino(i, phone, p)), end='\t' if (i + 1) % 6 and i != max_to_display else '\n')
     print("overload: %.1f%%" % (sum(bino(i, phone, p) for i in range(26, max_to_display + 1)) * 100))
     print("computation time: %.2f ms\n" % ((time() - ctime) * max))
     ctime = time()
